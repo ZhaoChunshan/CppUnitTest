@@ -3,6 +3,8 @@
 # $ cmake --version
 cmake_minimum_required(VERSION 3.5)
 
+add_subdirectory(googletest)
+include(GoogleTest)
 # Set the project name
 project (CppUnitTest)
 
@@ -11,8 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Create a sources variable with a link to all cpp files to compile
 set(SOURCES
-    run_boost_test.cpp
-#    run_catch2_test.cpp
+##    run_boost_test.cpp
+        run_catch2.cpp
+#        run_gtest.cpp
         )
 # Add an executable with the above sources
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -23,4 +26,7 @@ target_include_directories(${PROJECT_NAME}
         PUBLIC
         "${PROJECT_SOURCE_DIR}"
 
+        )
+target_link_libraries(${PROJECT_NAME}
+        GTest::gtest_main
         )

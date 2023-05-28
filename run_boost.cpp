@@ -2,18 +2,17 @@
 // Created by zcs on 5/28/23.
 //
 
-#define BOOST_TEST_MODULE My Test
+#define BOOST_TEST_MODULE Sort Test
 #include <boost/test/included/unit_test.hpp>
-#include <boost/test/parameterized_test.hpp>
-using namespace boost::unit_test;
 
 #include <string>
 #include "test_algorithm.h"
-#include <iostream>
 #include <fstream>
 
-void test_sort( const std::string & file_name )
+
+BOOST_AUTO_TEST_CASE(__sort_1)
 {
+    std::string file_name = "../data.txt";
     std::ifstream infile(file_name);
     int n, m;
     std::vector<int> vec;
@@ -34,5 +33,4 @@ void test_sort( const std::string & file_name )
         BOOST_TEST(vec[i] == res[i]);
     }
 }
-
 
