@@ -13,9 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Create a sources variable with a link to all cpp files to compile
 set(SOURCES
-##    run_boost_test.cpp
-        run_catch2.cpp
-#        run_gtest.cpp
+#    run_boost.cpp
+#        run_catch2.cpp
+        run_gtest.cpp
         )
 # Add an executable with the above sources
 add_executable(${PROJECT_NAME} ${SOURCES})

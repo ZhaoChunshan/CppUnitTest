@@ -28,10 +28,11 @@ void Open(string file_name, fstream &In, fstream &Ans) {
     Ans = fstream(ans_file.c_str(), ios::out);
 }
 
+
 void data_gen_sort(string file_name, int n, int m) {
     Open(file_name, fout_sort, fans_sort);
+    int *a = new int[1000100];
 
-    int a[100010];
     fout_sort << n << "\n";
     for(int i=1;i<=n;i++) {
         fout_sort << (a[i] = rand()%m) << "\n";
@@ -46,30 +47,41 @@ void data_gen_sort(string file_name, int n, int m) {
     }
 
     cout << file_name << ".ans gen complete!\n";
+    delete a;
 }
 
 void data_gen_hash(string file_name, int n, int m) {
     Open(file_name, fout_hash, fans_hash);
-
+    map<int,int> mm;
     fout_hash << n << " " << m << "\n";
-    int x[10010], y[10010];
+    int *x = new int[1000010], *y = new int[1000010];
     for(int i=1;i<=n;i++) {
         x[i] = n*10000 + rand()%1000000;
         y[i] = rand()%10000;
         fout_hash << x[i] << " " << y[i] << "\n";
+        auto it = mm.find(x[i]);
+        if(it != mm.end()){
+            it->second = y[i];
+        } else{
+            mm[x[i]] = y[i];
+        }
     }
 
     for(int i=1;i<=m;i++) {
         int t;
-        if(rand()%10 <= 9)
+        if(rand()%10 <= 9){
             fout_hash << x[(t = (rand()%n + 1))] << endl,
-                    fans_hash << y[t] << endl;
+                    fans_hash << mm.at(x[t]) << endl;
+        }
+
         else
             fout_hash << rand()%9999 << endl,
                     fans_hash << -1 << endl;
     }
     cout << file_name << ".in gen complete!\n";
     cout << file_name << ".ans gen complete!\n";
+    delete x;
+    delete y;
 }
 
 long long f[1000010];
@@ -137,7 +149,7 @@ void data_gen_reserve(string file_name, int n, int m) {
 void data_gen_binary(string file_name, int n, int m) {
     Open(file_name, fout_binary, fans_binary);
 
-    int a[100010];
+    int *a = new int [1000010];
     fout_binary << n << "\n";
     for(int i=1;i<=n;i++) {
         fout_binary << (a[i] = rand()%m) << "\n";
@@ -152,6 +164,7 @@ void data_gen_binary(string file_name, int n, int m) {
     }
 
     cout << file_name << ".ans gen complete!\n";
+    delete a;
 }
 
 void data_gen(string alg_name, void (*fun)(string, int, int)) {
